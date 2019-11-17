@@ -26,7 +26,6 @@ In case of the link is unavailable you can find it also inside the resources fol
   ```
   docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id
   ```
-  (!) your machine ip changes if you change network, update the config and restart the container
 
 3. Connect to the kafka cluster via localhost:29092 (bootstrap server)
 

@@ -5,8 +5,8 @@ This kafka example has a simple consumer and a simple producer for kafka in Java
 ## Disclaimer
 I am not the creator of this docker-compose the creator is mentionet below:
 
-*Author: Santthosh Selvadurai
-*Github: https://github.com/santthosh
+**Author: Santthosh Selvadurai **
+**Github: https://github.com/santthosh **
 
 ## Instructions:
 ### Kafka Docker for MacOS

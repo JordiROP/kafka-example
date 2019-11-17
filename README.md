@@ -14,6 +14,7 @@ docker-compose up -d
 ```
 
 2. Add a mapping with your container ip to docker.for.mac.host.internal to your /etc/hosts file 
+  
   e.g. 10.0.4.162 docker.for.mac.host.internal
   to check your container ip use:
   ```

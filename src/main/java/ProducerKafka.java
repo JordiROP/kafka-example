@@ -12,6 +12,7 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 public class ProducerKafka {
+    private PropertiesLoader propertiesLoader = PropertiesLoader.getPropertiesLoaderInstance();
     Logger log = LoggerFactory.getLogger(ProducerKafka.class);
     public static void main(String ... args) {
         ProducerKafka producerKafka = new ProducerKafka();
@@ -20,8 +21,9 @@ public class ProducerKafka {
 
     private void runProducer() {
         Producer<Long, String> kafkaProd = this.createProducer();
-        for (int index = 0; index < KafkaConstants.MESSAGE_COUNT; index++) {
-            ProducerRecord<Long, String> record = new ProducerRecord<>(KafkaConstants.TOPIC_NAME,
+        for (int index = 0; index < 1000; index++) {
+            ProducerRecord<Long, String> record = new ProducerRecord<>(
+                    propertiesLoader.getProperty("kafka.topic.name"),
                     "This is record " + index);
             try {
                 RecordMetadata metadata = kafkaProd.send(record).get();
@@ -37,8 +39,8 @@ public class ProducerKafka {
 
     private Producer<Long, String> createProducer() {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, KafkaConstants.CLIENT_ID);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, propertiesLoader.getProperty("kafka.brokers"));
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, propertiesLoader.getProperty("kafka.client.id"));
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         return new KafkaProducer<>(props);

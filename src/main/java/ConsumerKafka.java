@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Properties;
 
 public class ConsumerKafka {
+    private PropertiesLoader propertiesLoader = PropertiesLoader.getPropertiesLoaderInstance();
     Logger log = LoggerFactory.getLogger(ProducerKafka.class);
 
     public static void main(String ... args) {
@@ -20,7 +21,7 @@ public class ConsumerKafka {
 
     private void runConsumer() {
         try (Consumer<Long, String> consumer = this.createConsumer()) {
-            consumer.subscribe(Collections.singletonList(KafkaConstants.TOPIC_NAME));
+            consumer.subscribe(Collections.singletonList(propertiesLoader.getProperty("kafka.topic.name")));
             while (true) {
                 ConsumerRecords<Long, String> records = consumer.poll(Duration.ofSeconds(2));
                 for (ConsumerRecord<Long, String> record : records) {
@@ -35,11 +36,11 @@ public class ConsumerKafka {
 
     private Consumer<Long, String> createConsumer() {
         Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKERS);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaConstants.GROUP_ID_CONFIG);
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, propertiesLoader.getProperty("kafka.brokers"));
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, propertiesLoader.getProperty("kafka.group.id"));
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, propertiesLoader.getProperty("kafka.offset.reset.earliest"));
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, KafkaConstants.OFFSET_RESET_EARLIER);
         return new KafkaConsumer<>(props);
     }
 }

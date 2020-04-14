@@ -22,9 +22,9 @@ In case of the link is unavailable you can find it also inside the resources fol
   
     e.g. 10.0.4.162 docker.for.mac.host.internal
   
-    to check your container ip use:
+    to check your ip use:
   ```
-  docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id
+  ifconfig | grep -e "inet "
   ```
 
 3. Connect to the kafka cluster via localhost:29092 (bootstrap server)

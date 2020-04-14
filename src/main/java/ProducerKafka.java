@@ -20,12 +20,16 @@ public class ProducerKafka {
     }
 
     private void runProducer() {
+
         Producer<Long, String> kafkaProd = this.createProducer();
         for (int index = 0; index < 1000; index++) {
+
+            // This will generate a record that will be sent to the kafka topic
             ProducerRecord<Long, String> record = new ProducerRecord<>(
                     propertiesLoader.getProperty("kafka.topic.name"),
                     "This is record " + index);
             try {
+                // We send the record, the function returns metadata with what we have sent the partition and offset
                 RecordMetadata metadata = kafkaProd.send(record).get();
                 System.out.println("Record sent with key " + index + " to partition " + metadata.partition()
                         + " with offset " + metadata.offset());
@@ -38,6 +42,7 @@ public class ProducerKafka {
     }
 
     private Producer<Long, String> createProducer() {
+        // Set up the configurations for the producer
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, propertiesLoader.getProperty("kafka.brokers"));
         props.put(ProducerConfig.CLIENT_ID_CONFIG, propertiesLoader.getProperty("kafka.client.id"));

@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Properties;
 
 public class StreamsConsumerKafka {
-    private StreamsPropertiesLoader propertiesLoader = StreamsPropertiesLoader.getPropertiesLoaderInstance();
+    private final StreamsPropertiesLoader propertiesLoader = StreamsPropertiesLoader.getPropertiesLoaderInstance();
     Logger log = LoggerFactory.getLogger(ProducerKafka.class);
 
     public static void main(String ... args) {

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/kafka-example-docker.iml" filepath="$PROJECT_DIR$/kafka-example-docker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/kafka-example.iml" filepath="$PROJECT_DIR$/.idea/kafka-example.iml" />
     </modules>
   </component>
 </project>

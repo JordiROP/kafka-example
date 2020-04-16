@@ -1,35 +1,35 @@
-# kafka-example-docker
+# kafka-example
 
-This kafka example has a simple consumer and a simple producer for kafka in Java.
+This repo has a simple Kafka Producer and consumer and a Kafka Stream wordcount example
 
 ## Disclaimer
-I am not the creator of this docker-compose for MacOS the creator is mentionet below:
+The content on the resources is property of Apache, you can find the Kafka server here
 
-* **Author: Santthosh Selvadurai**
+* **Author: Apache Kafka**
 
-* **Github: https://github.com/santthosh**
+* **Download: https://www.apache.org/dyn/closer.cgi?path=/kafka/2.5.0/kafka_2.12-2.5.0.tgz**
 
 ## Instructions:
-### Kafka Docker for MacOS
-1. Download Kafka Container for MacOS: https://github.com/santthosh/kafka-for-mac
+1. Download Kafka : https://www.apache.org/dyn/closer.cgi?path=/kafka/2.5.0/kafka_2.12-2.5.0.tgz
+
+2. Start the Zookeeper and the Kafka Server
+
 ```
-docker-compose up -d
+bin/zookeeper-server-start.sh config/zookeeper.properties
+```
+```
+bin/kafka-server-start.sh config/server.properties
 ```
 
-In case of the link is unavailable you can find it also inside the resources folder inside the project
-
-2. Add a mapping with your container ip to docker.for.mac.host.internal to your /etc/hosts file 
-  
-    e.g. 10.0.4.162 docker.for.mac.host.internal
-  
-    to check your ip use:
-  ```
-  ifconfig | grep -e "inet "
-  ```
-
-3. Connect to the kafka cluster via localhost:29092 (bootstrap server)
-
-To create a new topic enter to the Kafka container and use:
+3. Create the required topics
+* ConsumerProducerExampleTopic
 ```
-sh /usr/bin/kafka-topics --create --bootstrap-server localhost:29092 --replication-factor 1 --partitions 1 --topic test
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
+    --replication-factor 1  --partitions 1 --topic ConsumerProducerExampleTopic
 ```
+* StreamsPlaintextOutput
+```
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
+    --replication-factor 1  --partitions 1 --topic StreamsPlaintextOutput
+```
+
